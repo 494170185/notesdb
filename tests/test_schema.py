@@ -8,7 +8,6 @@ from notesdb.schema import (
     validate_schema,
 )
 
-
 # ---------------------------------------------------------------- schema 自检
 
 def test_validate_schema_ok():
