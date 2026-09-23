@@ -53,8 +53,9 @@ def test_len_counts_unique():
 
 
 def test_unicode_names():
+    # 字典序按码点：乙(U+4E59) < 甲(U+7532)
     t = from_names(["笔记-甲", "笔记-乙"])
-    assert t.complete("笔记-") == ["笔记-甲", "笔记-乙"]
+    assert t.complete("笔记-") == ["笔记-乙", "笔记-甲"]
 
 
 def test_from_names_empty():

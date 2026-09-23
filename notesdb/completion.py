@@ -14,7 +14,7 @@ from __future__ import annotations
 
 
 def _subcommands(parser) -> list[str]:
-    action = parser._subparsers._group_actions[0]  # noqa: SLF001
+    action = parser._subparsers._group_actions[0]
     return sorted(action.choices)
 
 
