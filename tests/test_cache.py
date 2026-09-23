@@ -86,7 +86,6 @@ def test_scan_changes_all_kinds(tmp_path):
     assert set(store["added"]) == {"a", "b", "c"}
 
     # 用 load 建 mtime 表
-    from notesdb.store import Store
     current = _mtimes(tmp_path)
     _mk(tmp_path, {"d": "4\n"})                       # 新增
     (tmp_path / "notes" / "a.md").unlink()            # 删除
