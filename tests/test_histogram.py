@@ -51,7 +51,6 @@ def test_weekly_empty():
 
 
 def test_active_streak_days_sorted_unique():
-    notes = {"2026-09-01": {"body": ""}, "2026-09-01x": {"body": ""}}
     days = active_streak_days(_notes(), lambda n: MT.get(n))
     assert days == ["2026-09-01", "2026-09-15", "2026-09-20"]
 

@@ -19,7 +19,7 @@ from .daily import is_daily, parse_date
 def _days(notes: dict[str, dict], mtime_fn) -> list[date]:
     """每篇笔记的归属日期（每日笔记用名字，其余用 mtime）。"""
     days: list[date] = []
-    for name, note in notes.items():
+    for name in notes:
         if is_daily(name):
             days.append(parse_date(name))
         else:
