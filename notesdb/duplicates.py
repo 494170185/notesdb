@@ -47,12 +47,11 @@ def find_duplicates(notes: dict[str, dict]) -> list[list[str]]:
         for n in names:
             by_exact.setdefault(
                 _digest(notes[n].get("body", ""), True), []).append(n)
-        if len(by_exact) == 1:
-            out.append(names)  # 全部逐字节一致
+        exact_subgroups = [sub for sub in by_exact.values() if len(sub) > 1]
+        if not exact_subgroups:
+            out.append(names)  # 无 exact 子组：near 组整组输出
         else:
-            for sub in by_exact.values():
-                if len(sub) > 1:
-                    out.append(sub)
+            out.extend(exact_subgroups)  # 有更紧的重复：按 exact 细分
     out.sort(key=lambda g: g[0])
     return out
 
