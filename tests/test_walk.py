@@ -22,15 +22,16 @@ def test_walk_no_duplicates():
 
 
 def test_walk_follows_edges():
-    """漫游路径的每一步：要么沿链接相邻，要么是重新抽签（无边笔记）。"""
+    """漫游每一步：要么沿链接相邻，要么前一步无邻居触发重新抽签。"""
     g, notes = _graph(a="[[b]]", b="", c="", d="")
     result = walk(g, notes, steps=2, seed=7)
     assert len(result) == 2
     first, second = result
     adjacent = (second in g.outgoing.get(first, [])
                 or second in g.incoming.get(first, []))
-    restarted = second in {"c", "d"} and not g.outgoing.get(second)
-    assert adjacent or restarted
+    # first 无任何邻居 → 只能重新抽签，second 任意
+    had_no_neighbors = not g.outgoing.get(first) and not g.incoming.get(first)
+    assert adjacent or had_no_neighbors
 
 
 def test_walk_deterministic_with_seed():
