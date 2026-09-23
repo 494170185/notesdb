@@ -82,7 +82,7 @@ def test_fingerprint_changes_on_content(tmp_path):
 def test_scan_changes_all_kinds(tmp_path):
     _mk(tmp_path, {"a": "1\n", "b": "2\n", "c": "3\n"})
     # 第一次扫描建立基线
-    store = notes_snapshot = scan_changes(tmp_path, {})
+    store = scan_changes(tmp_path, {})
     assert set(store["added"]) == {"a", "b", "c"}
 
     # 用 load 建 mtime 表
