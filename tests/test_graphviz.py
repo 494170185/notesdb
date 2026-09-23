@@ -1,5 +1,5 @@
 """M30 DOT 导出测试。"""
-from notesdb.graphviz import to_dot, write_dot, _q
+from notesdb.graphviz import _q, to_dot, write_dot
 
 
 def _notes():
