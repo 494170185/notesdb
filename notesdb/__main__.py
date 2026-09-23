@@ -36,6 +36,7 @@ def build_parser() -> argparse.ArgumentParser:
     sub.add_parser("tags", help="标签使用统计")
     sub.add_parser("links", help="链接图摘要")
     sub.add_parser("stats", help="库统计")
+    sub.add_parser("export", help="静态站点导出到 export/")
     return parser
 
 
@@ -113,7 +114,15 @@ def main(argv: list[str] | None = None) -> int:
         print(f"索引位置    {ist['postings']}")
         return 0
 
-    print("用法: python -m notesdb {list|query|tags|links|stats}", file=sys.stderr)
+    if ns.command == "export":
+        from .exporter import export_site
+
+        out = export_site(ns.root, notes)
+        print(f"已导出 {len(notes)} 篇 → {out}")
+        print("浏览器直接打开 index.html 即可离线浏览")
+        return 0
+
+    print("用法: python -m notesdb {list|query|tags|links|stats|export}", file=sys.stderr)
     return 2
 
 
