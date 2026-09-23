@@ -29,16 +29,13 @@ def test_table_render_aligned():
     from notesdb.table import display_width
     t = Table(["name", "count"], [["a", 1], ["中文笔记", 22]])
     lines = t.render().splitlines()
-    # 第二列起点在所有行同一起始显示宽度（codepoint index 会骗人）
-    starts = [display_width(l[:l.index("count")]) if "count" in l else
-              display_width(l[:len(l) - len(l.lstrip().split("  ")[-1])])
-              for l in lines[:1] + lines[2:]]
-    # 表头与两行数据的第二列前缀宽度一致
-    prefix_widths = set()
+    # 第二列（count/1/22）的起始显示宽度在表头与数据行间一致
+    starts = []
     for l in lines:
-        first_col = l.split("  ")[0]
-        prefix_widths.add(display_width(first_col))
-    assert len(prefix_widths) == 1  # 第一列等宽对齐
+        token = l.rstrip().split()[-1]  # 行尾 token 即第二列
+        starts.append(display_width(l) - display_width(token))
+    # 表头、两行数据（跳过分隔行）
+    assert starts[0] == starts[2] == starts[3]
 
 
 def test_table_render_has_separator():
