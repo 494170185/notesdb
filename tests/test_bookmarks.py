@@ -6,7 +6,6 @@ from notesdb.bookmarks import (
     render_bookmarks,
 )
 
-
 # ---------------------------------------------------------------- 提取
 
 def test_extract_markdown_link():
