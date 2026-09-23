@@ -37,6 +37,7 @@ def build_parser() -> argparse.ArgumentParser:
     sub.add_parser("links", help="链接图摘要")
     sub.add_parser("stats", help="库统计")
     sub.add_parser("export", help="静态站点导出到 export/")
+    sub.add_parser("lint", help="库健康检查（悬空/孤岛/坏 frontmatter）")
     return parser
 
 
@@ -122,7 +123,17 @@ def main(argv: list[str] | None = None) -> int:
         print("浏览器直接打开 index.html 即可离线浏览")
         return 0
 
-    print("用法: python -m notesdb {list|query|tags|links|stats|export}", file=sys.stderr)
+    if ns.command == "lint":
+        from .lint import check_library, has_errors
+
+        issues = check_library(notes)
+        for i in issues:
+            print(f"  {i}")
+        if not issues:
+            print("✅ 库健康，无问题")
+        return 1 if has_errors(issues) else 0
+
+    print("用法: python -m notesdb {list|query|tags|links|stats|export|lint}", file=sys.stderr)
     return 2
 
 
