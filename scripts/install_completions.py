@@ -17,8 +17,8 @@ import sys
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, ROOT)
 
-from notesdb.__main__ import build_parser  # noqa: E402
-from notesdb.completion import write_scripts  # noqa: E402
+from notesdb.__main__ import build_parser
+from notesdb.completion import write_scripts
 
 
 def install_dir(shell: str) -> str:
