@@ -43,8 +43,7 @@ def jaro(a: str, b: str) -> float:
     if not la or not lb:
         return 0.0
     window = max(la, lb) // 2 - 1
-    if window < 0:
-        window = 0
+    window = max(window, 0)
     a_hit = [False] * la
     b_hit = [False] * lb
     matches = 0

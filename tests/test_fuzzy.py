@@ -1,7 +1,6 @@
 """M38 模糊匹配测试。"""
 from notesdb.fuzzy import best_matches, jaro, jaro_winkler, levenshtein
 
-
 # ---------------------------------------------------------------- levenshtein
 
 def test_levenshtein_identical():
