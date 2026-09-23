@@ -12,7 +12,7 @@
 from __future__ import annotations
 
 import json
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 
 FORMAT_VERSION = 1
 
@@ -21,12 +21,12 @@ def export_json(notes: dict[str, dict]) -> str:
     """导出为 JSON 文本（ensure_ascii=False，人可读）。"""
     payload = {
         "version": FORMAT_VERSION,
-        "exported_at": datetime.now(timezone.utc).isoformat(),
+        "exported_at": datetime.now(UTC).isoformat(),
         "notes": [
             {"name": name,
              "frontmatter": note.get("frontmatter"),
              "body": note.get("body", "")}
-            for name in sorted(notes)
+            for name, note in sorted(notes.items())
         ],
     }
     return json.dumps(payload, ensure_ascii=False, indent=1)
