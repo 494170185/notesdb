@@ -10,7 +10,9 @@ def _seed(root, files):
     notes = root / "notes"
     notes.mkdir(parents=True)
     for name, content in files.items():
-        (notes / name).write_text(content, encoding="utf-8")
+        target = notes / name
+        target.parent.mkdir(parents=True, exist_ok=True)
+        target.write_text(content, encoding="utf-8")
     return notes
 
 
