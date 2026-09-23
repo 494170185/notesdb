@@ -7,7 +7,7 @@ def _notes():
         "hub": {"frontmatter": None, "body": "枢纽 [[a]] [[b]] [[c]]"},
         "a": {"frontmatter": {"tags": ["x"]}, "body": "引用 [[hub]] 内容一"},
         "b": {"frontmatter": {"tags": ["x", "y"]}, "body": "引用 [[hub]] 内容二"},
-        "c": {"frontmatter": {"tags": ["y"]}, "body": "短"},
+        "c": {"frontmatter": {"tags": ["y"]}, "body": "也引用 [[hub]] 短"},
         "2026-09-24": {"frontmatter": None, "body": "每日笔记"},
         "lonely": {"frontmatter": None, "body": "孤岛"},
     }
