@@ -95,7 +95,7 @@ def _replace_target(body: str, old: str, new_name: str) -> tuple[str, int]:
 
 
 def _delete_file(store: Store, name: str) -> None:
-    path = store.notes_dir / f"{name}.md"
+    path = store.path_of(name)
     if path.exists():
         path.unlink()
 
