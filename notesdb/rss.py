@@ -13,7 +13,7 @@
 from __future__ import annotations
 
 import html
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from email.utils import format_datetime
 
 
@@ -29,7 +29,6 @@ def build_feed(notes: dict[str, dict], mtime_fn,
     items.sort(key=lambda x: -x[1])
     items = items[:limit]
 
-    import re
 
     from .model import note_title
 
@@ -41,7 +40,7 @@ def build_feed(notes: dict[str, dict], mtime_fn,
     for name, ts in items:
         note = notes[name]
         t = note_title(note) or name
-        dt = datetime.fromtimestamp(ts, tz=timezone.utc)
+        dt = datetime.fromtimestamp(ts, tz=UTC)
         link = f"{base_url.rstrip('/')}/notes/{_href(name)}"
         body = (note.get("body") or "").strip()
         summary = body[:200] + ("…" if len(body) > 200 else "")

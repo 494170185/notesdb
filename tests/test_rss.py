@@ -8,7 +8,7 @@ from notesdb.rss import build_feed, write_feed
 def _notes():
     return {
         "old": {"frontmatter": None, "body": "旧文"},
-        "new": {"frontmatter": {"title": "新文"}, "body": "新内容 " * 50},
+        "new": {"frontmatter": {"title": "新文"}, "body": "新内容 " * 60},
         "mid": {"frontmatter": None, "body": "中文"},
     }
 
