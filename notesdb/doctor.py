@@ -35,7 +35,7 @@ def run_checks(root: str | os.PathLike) -> list[tuple[bool, str, str]]:
 
     # 依赖
     try:
-        import yaml  # noqa: F401
+        import yaml
 
         checks.append((True, "PyYAML", f"已安装 {yaml.__version__}"))
     except ImportError:
