@@ -12,7 +12,6 @@ from notesdb.daily import (
     today_name,
 )
 
-
 # ---------------------------------------------------------------- 命名约定
 
 def test_is_daily_valid():

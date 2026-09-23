@@ -63,10 +63,12 @@ def render_markdown(body: str, existing: set[str] | None = None) -> str:
             i += 1
             continue
 
-        if (um := _ULIST_RE.match(line)) or (om := _OLIST_RE.match(line)):
-            tag = "ul" if um else "ol"
+        ul_match = _ULIST_RE.match(line)
+        ol_match = _OLIST_RE.match(line)
+        if ul_match or ol_match:
+            tag = "ul" if ul_match else "ol"
             items: list[str] = []
-            item_re = _ULIST_RE if um else _OLIST_RE
+            item_re = _ULIST_RE if ul_match else _OLIST_RE
             while i < len(lines) and (im := item_re.match(lines[i])):
                 items.append(f"<li>{_inline(im.group(1), existing)}</li>")
                 i += 1

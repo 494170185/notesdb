@@ -15,7 +15,6 @@ from __future__ import annotations
 
 import re
 
-from .model import render_note
 from .store import Store
 
 _WIKILINK_RE = re.compile(r"\[\[([^\]\n|]+)(\|[^\]\n]*)?\]\]")

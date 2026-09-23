@@ -125,7 +125,7 @@ def main(argv: list[str] | None = None) -> int:
         except QueryError as e:
             print(f"查询语法错误: {e}", file=sys.stderr)
             return 2
-        from .snippet import highlight, snippets_for
+        from .snippet import snippets_for
 
         hits = run(notes, q)
         print(f"命中 {len(hits)}/{len(notes)}")
@@ -354,7 +354,7 @@ def _write_commands(ns) -> int:
 def _parse(argv: list[str] | None) -> argparse.Namespace:
     parser = build_parser()
     argv = list(sys.argv[1:] if argv is None else argv)
-    known = set(parser._subparsers._group_actions[0].choices)  # noqa: SLF001
+    known = set(parser._subparsers._group_actions[0].choices)
     if argv and argv[0] in known:
         return parser.parse_args(argv)
     return parser.parse_args(argv)

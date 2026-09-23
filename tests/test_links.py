@@ -5,7 +5,6 @@ from notesdb.links import (
     extract_wikilinks_ignoring_code,
 )
 
-
 # ---------------------------------------------------------------- 提取
 
 def test_basic_wikilink():

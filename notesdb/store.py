@@ -83,7 +83,7 @@ _INVALID_CHARS = set('<>:"/\\|?*') - {"/"}  # / 是名字分隔符
 
 
 def _valid_name(name: str) -> bool:
-    """Windows 兼容的笔记名（全平台同一口径，避免跨平台库漂移）。
+    r"""Windows 兼容的笔记名（全平台同一口径，避免跨平台库漂移）。
 
     "sub/page" 合法（目录结构），但段内不允许 \（与 / 混用会歧义）。
     """
@@ -110,6 +110,5 @@ def _valid_segment(segment: str) -> bool:
     stem = segment.split(".")[0].lower()
     if stem in {"con", "prn", "aux", "nul"}:
         return False
-    if (stem.startswith("com") or stem.startswith("lpt")) and stem[3:].isdigit():
-        return False
-    return True
+    # Windows 保留设备名（com1…/lpt1…）
+    return not (stem.startswith(("com", "lpt")) and stem[3:].isdigit())

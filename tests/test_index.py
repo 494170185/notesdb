@@ -2,7 +2,6 @@
 from notesdb.index import InvertedIndex
 from notesdb.tokenize import tokenize, tokenize_positions
 
-
 # ---------------------------------------------------------------- 分词
 
 def test_english_lowercase():

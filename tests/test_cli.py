@@ -3,7 +3,6 @@
 不 mock 任何层——CLI 的参数解析、退出码、输出格式
 全走真实链路（subprocess 起 Python）。
 """
-import json
 import subprocess
 import sys
 from pathlib import Path
@@ -65,7 +64,7 @@ def test_cli_lint(lib):
 
 
 def test_cli_export(lib):
-    code, out, _ = cli("export", root=lib)
+    code, _, _ = cli("export", root=lib)
     assert code == 0
     assert (lib / "export" / "index.html").exists()
 
@@ -91,7 +90,7 @@ def test_cli_version():
 
 
 def test_cli_similar(lib):
-    code, out, _ = cli("similar", "a", root=lib)
+    code, _, _ = cli("similar", "a", root=lib)
     assert code == 0
 
 
@@ -168,7 +167,7 @@ def test_cli_import(lib, tmp_path):
     src = lib / "incoming"
     src.mkdir()
     (src / "c.md").write_text("导入内容\n", encoding="utf-8")
-    code, out, _ = cli("import", str(src), root=lib)
+    code, _, _ = cli("import", str(src), root=lib)
     assert code == 0
     assert (lib / "notes" / "c.md").exists()
 

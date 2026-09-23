@@ -1,7 +1,6 @@
 """M16 摘要与高亮测试。"""
 from notesdb.snippet import highlight, snippet, snippets_for
 
-
 BODY = "第一行\n第二行目标在这里\n第三行\n第四行\n第五行又目标\n"
 
 

@@ -87,15 +87,15 @@ def load(root: str | Path, env: dict | None = None) -> Config:
 
 
 def _apply_env(values: dict, env: dict) -> None:
-    for key in _DEFAULTS:
+    for key, default in _DEFAULTS.items():
         raw = env.get(f"{ENV_PREFIX}{key.upper()}")
         if raw is None or raw == "":
             continue
-        if isinstance(_DEFAULTS[key], float):
+        if isinstance(default, float):
             values[key] = float(raw)
-        elif isinstance(_DEFAULTS[key], int):
+        elif isinstance(default, int):
             values[key] = int(raw)
-        elif isinstance(_DEFAULTS[key], list):
+        elif isinstance(default, list):
             values[key] = [s.strip() for s in raw.split(",") if s.strip()]
         else:
             values[key] = raw

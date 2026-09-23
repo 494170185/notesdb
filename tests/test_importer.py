@@ -1,7 +1,7 @@
 """M17 批量导入测试。"""
 import pytest
 
-from notesdb.importer import ImportResult, import_dir
+from notesdb.importer import import_dir
 from notesdb.store import Store
 
 

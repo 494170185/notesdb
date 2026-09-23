@@ -14,6 +14,7 @@
 from __future__ import annotations
 
 import re
+
 import yaml
 
 _FM_RE = re.compile(

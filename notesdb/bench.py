@@ -69,7 +69,7 @@ def bench(notes: dict[str, dict]) -> dict[str, float]:
     similar_pairs(notes, threshold=0.3)
     results["similar_pairs"] = time.perf_counter() - t0
 
-    body = notes[f"note0"]["body"]
+    body = notes["note0"]["body"]
     t0 = time.perf_counter()
     for _ in range(100):
         tokenize(body)

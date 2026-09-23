@@ -4,7 +4,6 @@ import pytest
 from notesdb.model import parse_note, render_note, split_frontmatter
 from notesdb.store import Store
 
-
 # ---------------------------------------------------------------- 模型
 
 def test_split_with_frontmatter():
@@ -126,8 +125,7 @@ def test_store_load_reports_invalid_files(tmp_path, monkeypatch):
     real_rglob = Path.rglob
 
     def fake_rglob(self, pattern):
-        for p in real_rglob(self, pattern):
-            yield p
+        yield from real_rglob(self, pattern)
         if self.name == "notes" and pattern == "*.md":
             yield Path(str(self)) / "ba<d.md"
 
@@ -162,7 +160,7 @@ def test_store_nested_name_roundtrip(tmp_path):
 
 def test_store_rejects_bad_segments(tmp_path):
     s = Store(tmp_path)
-    for bad in ("sub/con", "a//b", "/lead", "trail/", "sub\page"):
+    for bad in ("sub/con", "a//b", "/lead", "trail/", r"sub\page"):
         with pytest.raises(ValueError):
             s.store(bad, {"frontmatter": None, "body": "x\n"})
 

@@ -59,7 +59,7 @@ def timeline(notes: dict[str, dict],
     时 mtime 与内容日期脱节，名字才是权威。
     """
     entries: list[tuple[str, str, float]] = []
-    for name, note in notes.items():
+    for name in notes:
         if is_daily(name):
             day = name
             ts = parse_date(name).toordinal()
@@ -68,7 +68,7 @@ def timeline(notes: dict[str, dict],
             if ts is None:
                 continue  # 没有时间信息的笔记进不了时间线
             day = _day_of(ts)
-        entries.append((name, day, ts if not is_daily(name) else ts * 1.0))
+        entries.append((name, day, float(ts)))
     entries.sort(key=lambda x: -x[2])
     return [{"name": n, "day": d} for n, d, _ in entries]
 
