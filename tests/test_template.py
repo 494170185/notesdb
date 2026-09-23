@@ -19,12 +19,12 @@ def test_builtin_name():
 
 
 def test_builtin_today_format():
-    out = render_template("日期 {{today}}", None, "n")
+    out = render_template("日期 {{today}}", None, "n").removeprefix("日期 ").strip()
     assert dt.date.fromisoformat(out) == dt.date.today()  # 合法 ISO 日期
 
 
 def test_builtin_now_format():
-    out = render_template("时刻 {{now}}", None, "n")
+    out = render_template("时刻 {{now}}", None, "n").removeprefix("时刻 ").strip()
     hh, mm = out.split(":")
     assert 0 <= int(hh) < 24 and 0 <= int(mm) < 60
 
