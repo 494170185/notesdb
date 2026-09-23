@@ -1,5 +1,4 @@
 """M25 排序测试。"""
-from datetime import datetime
 
 import pytest
 
