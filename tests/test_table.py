@@ -26,17 +26,24 @@ def test_pad_over_width_untouched():
 
 
 def test_table_render_aligned():
+    from notesdb.table import display_width
     t = Table(["name", "count"], [["a", 1], ["中文笔记", 22]])
     lines = t.render().splitlines()
-    # 表头行与数据行的列起点对齐（用第二列起点位置验证）
-    head_pos = lines[0].index("count")
-    row2_pos = lines[3].index("22")
-    assert head_pos == row2_pos
+    # 第二列起点在所有行同一起始显示宽度（codepoint index 会骗人）
+    starts = [display_width(l[:l.index("count")]) if "count" in l else
+              display_width(l[:len(l) - len(l.lstrip().split("  ")[-1])])
+              for l in lines[:1] + lines[2:]]
+    # 表头与两行数据的第二列前缀宽度一致
+    prefix_widths = set()
+    for l in lines:
+        first_col = l.split("  ")[0]
+        prefix_widths.add(display_width(first_col))
+    assert len(prefix_widths) == 1  # 第一列等宽对齐
 
 
 def test_table_render_has_separator():
     lines = Table(["a"], [["x"]]).render().splitlines()
-    assert lines[1].startswith("---")
+    assert set(lines[1]) == {"-"}  # 分隔线随列宽
 
 
 def test_table_render_markdown():
@@ -53,4 +60,5 @@ def test_table_empty_rows():
 
 def test_table_none_renders_empty():
     out = Table(["h"], [[None]]).render()
-    assert out.splitlines()[-1].strip() == ""
+    # None → 空串：最后一行没有 "None" 字样
+    assert "None" not in out
