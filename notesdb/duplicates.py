@@ -41,15 +41,15 @@ def find_duplicates(notes: dict[str, dict]) -> list[list[str]]:
     # 完全相同的标成一组，仅规范化相同的不混在 exact 里）
     out: list[list[str]] = []
     for names in groups:
-        exact_digests = {_digest(notes[n].get("body", ""), True) for n in names}
-        if len(exact_digests) == 1:
+        # near 层检出的组默认整组输出（near 就是报告对象）；
+        # 只有组内存在多个 exact 子组时才按 exact 细分展示
+        by_exact: dict[str, list[str]] = {}
+        for n in names:
+            by_exact.setdefault(
+                _digest(notes[n].get("body", ""), True), []).append(n)
+        if len(by_exact) == 1:
             out.append(names)  # 全部逐字节一致
         else:
-            # 规范化相同但内容有差：逐字一致的细分组
-            by_exact: dict[str, list[str]] = {}
-            for n in names:
-                by_exact.setdefault(
-                    _digest(notes[n].get("body", ""), True), []).append(n)
             for sub in by_exact.values():
                 if len(sub) > 1:
                     out.append(sub)
