@@ -148,8 +148,13 @@ def _tags_body(tag_index: dict[str, list[str]]) -> str:
 
 def _export_note(out_dir: Path, name: str, note: dict,
                  graph: LinkGraph, existing: set[str]) -> None:
+    from .template import render_template
+
     title = note_title(note) or name
-    body = render_markdown(note.get("body", ""), existing)
+    # 模板变量先于 Markdown 渲染（占位符可能生成 markdown 结构）
+    body_text = render_template(note.get("body", ""),
+                                note.get("frontmatter"), name)
+    body = render_markdown(body_text, existing)
     tags = note_tags(note)
     tag_html = "".join(f'<span class="tag">{_esc(t)}</span>' for t in tags)
 
