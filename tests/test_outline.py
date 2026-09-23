@@ -7,7 +7,6 @@ from notesdb.outline import (
     render_toc,
 )
 
-
 BODY = """\
 # 一级
 正文
